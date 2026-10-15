@@ -4,8 +4,10 @@ import LatestCollection from '../components/LatestCollection'
 import BestSeller from '../components/BestSeller'
 import OurPolicy from '../components/OurPolicy'
 import NewsletterBox from '../components/NewsletterBox'
+import { useTranslation } from '../context/LanguageContext'
 
 const Home = () => {
+  const { t } = useTranslation();
   return (
     <div>
       <Hero/>
@@ -13,9 +15,9 @@ const Home = () => {
       <BestSeller/>
       <OurPolicy/>
       <NewsletterBox 
-  top="Stay Updated"
-  midle="Join Us"
-  bottom="Get the latest news & offers."
+  top={t('newsletter.stayUpdated')}
+  midle={t('newsletter.joinUs')}
+  bottom={t('newsletter.getLatest')}
 />
 
     </div>

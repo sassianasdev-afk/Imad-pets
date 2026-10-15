@@ -9,8 +9,10 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import LoadingProducts from "./LoadingProducts";
 import LoadingReviews from "./LoadingReviews";
+import { useTranslation } from "../context/LanguageContext";
 
 const Product = () => {
+  const { t } = useTranslation();
   const { productId } = useParams();
   const { products, currency, addToCart, backendUrl, loading, token } = useContext(ShopContext);
   const [productData, setProductData] = useState(false);
@@ -70,17 +72,17 @@ const Product = () => {
   const submitReview = async () => {
 
     if (!token) {
-      toast.error("Please login to submit a review");
+      toast.error(t('toast.pleaseLogin'));
       return;
     }
 
     if (userRating === 0) {
-      toast.error("Please select a rating");
+      toast.error(t('toast.selectRating'));
       return;
     }
 
     if (!reviewComment.trim()) {
-      toast.error("Please write a review comment");
+      toast.error(t('toast.writeComment'));
       return;
     }
 
@@ -108,7 +110,7 @@ const Product = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error("Error submitting review");
+      toast.error(t('toast.errorSubmitting'));
     }
   };
 
@@ -153,7 +155,7 @@ const Product = () => {
               ))
             ) : (
               <div className="w-[23%] sm:w-full sm:mb-3 aspect-[3/4] bg-gray-200 border-2 border-dashed border-gray-400 flex items-center justify-center">
-                <span className="text-gray-500 text-xs text-center px-1">no image</span>
+                <span className="text-gray-500 text-xs text-center px-1">{t('common.noImage')}</span>
               </div>
             )}
           </div>
@@ -174,7 +176,7 @@ const Product = () => {
               <img className="w-full h-auto" src={image} alt="" />
             ) : (
               <div className="w-full aspect-[3/4] bg-gray-200 border-2 border-dashed border-gray-400 flex items-center justify-center">
-                <span className="text-gray-500 text-sm text-center px-4">product without image</span>
+                <span className="text-gray-500 text-sm text-center px-4">{t('common.productWithoutImage')}</span>
               </div>
             )}
           </div>
@@ -190,7 +192,7 @@ const Product = () => {
           <p className="mt-5 text-3xl font-medium">{currency}{productData.price}</p>
           <p className="mt-5 text-gray-500 md:w-4/5">{productData.description}</p>
           <div className="flex flex-col gap-4 my-8">
-            <p>Select Size</p>
+            <p>{t('product.selectSize')}</p>
             <div className="flex flex-wrap gap-2">
               {productData.sizes.map((item, index) => (
                 <button
@@ -207,13 +209,13 @@ const Product = () => {
             onClick={() => addToCart(productData._id, size)}
             className="bg-black  text-white px-8 py-3 text-sm active:bg-gray-700"
           >
-            ADD TO CART
+            {t('product.addToCart')}
           </button>
           <hr className="mt-8 sm:w-4/5" />
           <div className="text-sm text-gray-500 mt-5 flex flex-col gap-1">
-            <p>100% Original product.</p>
-            <p>Cash on delivery is available on this product.</p>
-            <p>Easy return and exchange policy within 7days.</p>
+            <p>{t('product.originalProduct')}</p>
+            <p>{t('product.codAvailable')}</p>
+            <p>{t('product.easyReturn')}</p>
           </div>
         </div>
       </div>
@@ -221,8 +223,8 @@ const Product = () => {
       {/* -----------------Description & review section -------------- */}
       <div className="mt-20">
         <div className="flex ">
-          <p onClick={() => setShowReview(false)} className={`border px-5 py-3 text-sm cursor-pointer  ${showReview ? '' : 'font-semibold'}`}>Description</p>
-          <p onClick={() => setShowReview(true)} className={`border px-5 py-3 text-sm cursor-pointer ${showReview ? 'font-semibold' : ''}`}>Reviews ({totalReviews})</p>
+          <p onClick={() => setShowReview(false)} className={`border px-5 py-3 text-sm cursor-pointer  ${showReview ? '' : 'font-semibold'}`}>{t('product.description')}</p>
+          <p onClick={() => setShowReview(true)} className={`border px-5 py-3 text-sm cursor-pointer ${showReview ? 'font-semibold' : ''}`}>{t('product.reviews', { count: totalReviews })}</p>
 
         </div>
         {
@@ -234,13 +236,13 @@ const Product = () => {
                 onClick={() => setShowReviewForm(true)}
                 className="bg-black  text-white px-8 py-3 text-sm active:bg-gray-700 w-fit"
               >
-                Add Review
+                {t('product.addReview')}
               </button>
 
               {/* Review Form */}
               {showReviewForm && (
                 <div className="border p-4 mb-4  ">
-                  <h4 className="font-medium mb-3">Write Your Review</h4>
+                  <h4 className="font-medium mb-3">{t('product.writeReview')}</h4>
                   <div className="flex items-center gap-1 mb-3">
                     {[1, 2, 3, 4, 5].map((star) => (
                       <img
@@ -255,7 +257,7 @@ const Product = () => {
                   <textarea
                     value={reviewComment}
                     onChange={(e) => setReviewComment(e.target.value)}
-                    placeholder="Share your thoughts about this product..."
+                    placeholder={t('product.placeholder')}
                     className="w-full border p-3 text-sm h-24 resize-none"
                   />
                   <div className="flex gap-3 mt-3">
@@ -263,7 +265,7 @@ const Product = () => {
                       onClick={submitReview}
                       className="bg-black text-white px-6 py-2 text-sm"
                     >
-                      SUBMIT REVIEW
+                      {t('product.submitReview')}
                     </button>
                     <button
                       onClick={() => {
@@ -273,7 +275,7 @@ const Product = () => {
                       }}
                       className="border border-gray-300 px-6 py-2 text-sm"
                     >
-                      CANCEL
+                      {t('product.cancel')}
                     </button>
                   </div>
                 </div>
@@ -307,13 +309,13 @@ const Product = () => {
                   </div>
                 ))
               ) : (
-                <p className="text-gray-500 text-center my-auto ">No reviews yet. Be the first to review this product!</p>
+                <p className="text-gray-500 text-center my-auto ">{t('product.noReviews')}</p>
               )}
             </div>
             :
             <div className="flex flex-col gap-4 border px-6 py-6 text-sm text-gray-500 overflow-y-scroll h-80">
-              <p>An e-commerce website is an online platform that facilitares the buying and selling of products or services over the internet. It serves as a virtual marketplace whre buisnesses and individual can showcase their products , interact with customers, and conduct transactions without the need for a physical presence. E-commerce website have gained immense popularity due to their convenience, accessibility, and the global reach they offer.</p>
-              <p>E-commerce website typically display products or services along with detailed descriptions, images, prices, and any available variations (e.g.,sizes,colors).Each product usually has its own dedicated page with relevant information.</p>
+              <p>{t('product.descPlaceholder1')}</p>
+              <p>{t('product.descPlaceholder2')}</p>
             </div>
         }
 
@@ -325,7 +327,7 @@ const Product = () => {
     // Product Not Found
     <div className='text-center py-20 border-2 border-gray-200 rounded-lg'>
       <img src={assets.logo} alt="" className='w-1/2 mx-auto mb-4 opacity-50' />
-      <p className='text-gray-500 text-lg'>PRODUCT NOT FOUND </p>
+      <p className='text-gray-500 text-lg'>{t('product.productNotFound')}</p>
     </div>
   );
 };

@@ -7,9 +7,11 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import { assets } from '../assets/admin_assets/assets'
 import { useNavigate } from 'react-router-dom'
 import ListLoading from '../components/ListLoading'
+import { useTranslation } from '../context/LanguageContext'
 
 //  حذف { token } من props
 const List = () => {
+  const { t } = useTranslation();
 
   const [list, setList] = useState([])
   const [loading, setLoading] = useState(true)
@@ -74,15 +76,15 @@ const List = () => {
 
   return (
     <>
-      <p className='mb-2 '>All Products List</p>
+      <p className='mb-2 '>{t('productList.title')}</p>
       <div className='flex flex-col gap-2'>
 
         {list.length !== 0 && <div className='hidden md:grid grid-cols-[1fr_3fr_1fr_1fr_1fr] items-center py-1 px-2 border bg-gray-100 text-sm'>
-          <b>Image</b>
-          <b>Name</b>
-          <b>Category</b>
-          <b>Price</b>
-          <b className='text-center'>Action</b>
+          <b>{t('productList.image')}</b>
+          <b>{t('productList.name')}</b>
+          <b>{t('productList.category')}</b>
+          <b>{t('productList.price')}</b>
+          <b className='text-center'>{t('productList.action')}</b>
         </div>}
 
         {loading ? (
@@ -90,7 +92,7 @@ const List = () => {
         ) : list.length === 0 ? (
           <div className='text-center py-20 border-2 border-gray-200 rounded-lg'>
             <img src={assets.cloth_icon} alt="" className='w-20 mx-auto mb-4 opacity-50' />
-            <p className='text-gray-500 text-lg'>No Products found</p>
+            <p className='text-gray-500 text-lg'>{t('productList.none')}</p>
           </div>
         ) : (
           list.map((item, index) => (
@@ -100,7 +102,7 @@ const List = () => {
               <p>{item.category}</p>
               <p>{currency} {item.price}</p>
               <p onClick={() => openConfirmModal(item._id, item.name)} className='text-right md:text-center cursor-pointer text-lg'>
-                {loadingDelete === item._id ? 'DELETING...' : 'X'}
+                {loadingDelete === item._id ? t('productList.deleting') : t('productList.x')}
               </p>
             </div>
           ))
@@ -111,22 +113,22 @@ const List = () => {
       {showConfirm && (
         <div className='fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4'>
           <div className='bg-white rounded-lg border border-gray-200 p-6 w-full max-w-sm shadow-lg'>
-            <h3 className='text-lg font-semibold mb-4 text-black'>Delete Product</h3>
+            <h3 className='text-lg font-semibold mb-4 text-black'>{t('productList.deleteProduct')}</h3>
             <p className='text-gray-600 mb-6'>
-              Are you sure you want to delete <span className='font-semibold text-black'>"{productToDelete?.name}"</span>?
+              {t('productList.confirm')} <span className='font-semibold text-black'>"{productToDelete?.name}"</span>?
             </p>
             <div className='flex gap-3'>
               <button
                 onClick={closeConfirmModal}
                 className='flex-1 py-2 px-4 bg-white text-gray-700 border border-gray-300 rounded-lg font-medium hover:bg-gray-50 hover:border-gray-400 transition-colors'
               >
-                Cancel
+                {t('productList.cancel')}
               </button>
               <button
                 onClick={confirmDelete}
                 className='flex-1 py-2 px-4 bg-black text-white border border-black rounded-lg font-medium hover:bg-gray-800 transition-colors'
               >
-                Delete
+                {t('productList.delete')}
               </button>
             </div>
           </div>

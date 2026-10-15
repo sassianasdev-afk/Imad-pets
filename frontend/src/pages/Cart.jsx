@@ -8,8 +8,10 @@ import CartTotal from '../components/CartTotal';
 import { toast } from 'react-toastify';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
+import { useTranslation } from '../context/LanguageContext';
 
 const Cart = () => {
+  const { t } = useTranslation();
   const { products, currency, cartItems, updateQuantity, navigate, loading } = useContext(ShopContext);
   const [cartData, setCartData] = useState([]);
 
@@ -36,7 +38,7 @@ const Cart = () => {
   return (
     <div className='border-t pt-16'>
       <div className='text-2xl mb-3'>
-        <Title text1={'YOUR'} text2={'CART'} />
+        <Title text1={t('cart.yourCart').split(' ')[0]} text2={t('cart.yourCart').split(' ')[1]} />
       </div>
 
       <div>
@@ -104,7 +106,7 @@ const Cart = () => {
         ) : (
           <div className='text-center py-20 border-2 border-gray-200 rounded-lg'>
             <img src={assets.logo} alt="" className='w-1/2 mx-auto mb-4 opacity-50' />
-            <p className='text-gray-500 text-lg'>YOUR CART IS EMPTY </p>
+            <p className='text-gray-500 text-lg'>{t('cart.yourCartIsEmpty')}</p>
           </div>
         )}
       </div>
@@ -114,10 +116,10 @@ const Cart = () => {
           <CartTotal />
           <div className='w-full text-end'>
             <button
-              onClick={() => cartData.length > 0 ? navigate('/place-order') : toast.error('Select Product')}
+              onClick={() => cartData.length > 0 ? navigate('/place-order') : toast.error(t('common.selectProduct'))}
               className='bg-black  text-white text-sm my-8 px-8 py-3'
             >
-              PROCEED TO CHECKOUT
+              {t('common.proceedToCheckout')}
             </button>
           </div>
         </div>

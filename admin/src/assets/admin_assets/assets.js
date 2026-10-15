@@ -4,6 +4,9 @@ import order_icon from './order_icon.png'
 import upload_area from './upload_area.png'
 import parcel_icon from './parcel_icon.svg'
 import cloth_icon from './cloth.png'
+import usa_flag from './usa_flag.png'
+import frensh_flag from './frensh_flag.png'
+import ma_flag from './ma_flag.png'
 
 export const assets = {
     logo,
@@ -11,6 +14,9 @@ export const assets = {
     add_icon,
     order_icon,
     upload_area,
-    parcel_icon
+    parcel_icon,
+    usa_flag,
+    frensh_flag,
+    ma_flag
 }
 

@@ -10,6 +10,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import Update from './pages/Update'
 import axios from 'axios'
 import { assets } from './assets/admin_assets/assets'
+import { useTranslation } from './context/LanguageContext'
 
 export const backendUrl = import.meta.env.VITE_BACKEND_URL
 export const currency = 'MAD :'
@@ -18,6 +19,7 @@ export const currency = 'MAD :'
 axios.defaults.withCredentials = true
 
 const App = () => {
+  const { t } = useTranslation();
 
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [checkingAuth, setCheckingAuth] = useState(true)
@@ -47,7 +49,7 @@ const App = () => {
         const res = await axios.get(backendUrl + '/api/user/verify-admin')
         if (!res.data.success) {
           setIsLoggedIn(false)
-          toast.info('Session expired. Please login again.')
+          toast.info(t('admin.sessionExpired'))
         }
       } catch {
         setIsLoggedIn(false)

@@ -6,8 +6,10 @@ import ProductItem from '../components/ProductItem';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import CollectionBox from '../components/CollectionBox';
+import { useTranslation } from '../context/LanguageContext';
 
 const Collection = () => {
+  const { t } = useTranslation();
   const { products, search, showSearch, getProductsData, loading } = useContext(ShopContext);
   const [showFilter, setShowFilter] = useState(false);
   const [filterProducts, setFilterProducts] = useState([]);
@@ -102,41 +104,41 @@ const Collection = () => {
         {/* filter options */}
         <div className='min-w-60'>
           <p onClick={() => setShowFilter(!showFilter)} className='my-2 text-xl flex items-center gap-2 cursor-pointer'>
-            FILTERS
+            {t('collection.filters')}
             <img src={assets.dropdown_icon} className={`h-3 sm:hidden ${showFilter ? 'rotate-90' : ''}`} alt="" />
           </p>
 
           {/* category filter */}
           <div className={`border border-gray-300 pl-5 py-3 mt-6 ${showFilter ? '' : 'hidden'} sm:block`}>
-            <p className='mb-3 text-sm font-medium'>CATEGORIES</p>
+            <p className='mb-3 text-sm font-medium'>{t('collection.categories')}</p>
             <div className='flex flex-col gap-2 text-sm font-light text-gray-700'>
               <p className='flex gap-2'>
-                <input className='w-3 accent-black' type="checkbox" value={'Dogs'} onChange={toggleCategory} />Dogs
+                <input className='w-3 accent-black' type="checkbox" value={'Dogs'} onChange={toggleCategory} />{t('collection.dogs')}
               </p>
               <p className='flex gap-2'>
-                <input className='w-3 accent-black' type="checkbox" value={'Cats'} onChange={toggleCategory} />Cats
+                <input className='w-3 accent-black' type="checkbox" value={'Cats'} onChange={toggleCategory} />{t('collection.cats')}
               </p>
               <p className='flex gap-2'>
-                <input className='w-3 accent-black' type="checkbox" value={'Birds'} onChange={toggleCategory} />Birds
+                <input className='w-3 accent-black' type="checkbox" value={'Birds'} onChange={toggleCategory} />{t('collection.birds')}
               </p>
             </div>
           </div>
 
           {/* subcategory filter */}
           <div className={`border border-gray-300 pl-5 py-3 my-5 ${showFilter ? '' : 'hidden'} sm:block`}>
-            <p className='mb-3 text-sm font-medium'>TYPE</p>
+            <p className='mb-3 text-sm font-medium'>{t('collection.type')}</p>
             <div className='flex flex-col gap-2 text-sm font-light text-gray-700'>
               <p className='flex gap-2'>
-                <input className='w-3 accent-black' type="checkbox" value={'Animal'} onChange={toggleSubCategory} />Animal
+                <input className='w-3 accent-black' type="checkbox" value={'Animal'} onChange={toggleSubCategory} />{t('collection.animal')}
               </p>
               <p className='flex gap-2'>
-                <input className='w-3 accent-black' type="checkbox" value={'Accessories'} onChange={toggleSubCategory} />Accessories
+                <input className='w-3 accent-black' type="checkbox" value={'Accessories'} onChange={toggleSubCategory} />{t('collection.accessories')}
               </p>
               <p className='flex gap-2'>
-                <input className='w-3 accent-black' type="checkbox" value={'Food'} onChange={toggleSubCategory} />Food
+                <input className='w-3 accent-black' type="checkbox" value={'Food'} onChange={toggleSubCategory} />{t('collection.food')}
               </p>
               <p className='flex gap-2'>
-                <input className='w-3 accent-black' type="checkbox" value={'Drinks'} onChange={toggleSubCategory} />Drinks
+                <input className='w-3 accent-black' type="checkbox" value={'Drinks'} onChange={toggleSubCategory} />{t('collection.drinks')}
               </p>
             </div>
           </div>
@@ -145,12 +147,12 @@ const Collection = () => {
         {/* right side */}
         <div className='flex-1'>
           <div className='flex flex-col-reverse sm:flex-row sm:flex justify-between text-base sm:text-2xl mb-4'>
-            <Title text1={'ALL'} text2={'COLLECTIONS'} />
+            <Title text1={t('collection.allCollections').split(' ')[0]} text2={t('collection.allCollections').split(' ')[1]} />
             {/* product sort */}
             <select onChange={(e) => setSortType(e.target.value)} className={`${showFilter ? '' : 'hidden'} mb-5 sm:mb-0 sm:block border py-2 px-3 border-gray-300 text-sm`}>
-              <option value="relavent">Sort by: Relavent</option>
-              <option value="low-high">Sort by: Low to High</option>
-              <option value="high-low">Sort by: High to Low</option>
+              <option value="relavent">{t('collection.sortRelevant')}</option>
+              <option value="low-high">{t('collection.sortLowHigh')}</option>
+              <option value="high-low">{t('collection.sortHighLow')}</option>
             </select>
           </div>
 

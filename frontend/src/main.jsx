@@ -4,14 +4,16 @@ import "./index.css";
 import App from "./App.jsx";
 import { BrowserRouter } from "react-router-dom";
 import ShopContextProvider from "./context/ShopContext.jsx";
-
+import { LanguageProvider } from "./context/LanguageContext";
 
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
-    <ShopContextProvider>
+    <LanguageProvider>
+      <ShopContextProvider>
 
-      <App />
-    </ShopContextProvider>
+        <App />
+      </ShopContextProvider>
+    </LanguageProvider>
   </BrowserRouter>
 );

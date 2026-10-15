@@ -6,9 +6,11 @@ import { assets } from '../assets/admin_assets/assets'
 import { useSearchParams } from 'react-router-dom'
 import OrderStatusNav from '../components/OrderStatusNav'
 import OrdersSkeleton from '../components/OrdersSkeleton'
+import { useTranslation } from '../context/LanguageContext'
 
 // حذف { token } من props — cookie كتمشي أوتوماتيك
 const Orders = () => {
+  const { t } = useTranslation();
 
   const [orders, setOrders] = useState([])
   const [loading, setLoading] = useState(true)
@@ -117,7 +119,7 @@ const Orders = () => {
 
   return (
     <div>
-      <h3 className='mb-4 text-xl font-semibold'>Order Page</h3>
+      <h3 className='mb-4 text-xl font-semibold'>{t('orderPage.title')}</h3>
       
       <OrderStatusNav 
         statusFilter={statusFilter}
@@ -131,7 +133,7 @@ const Orders = () => {
         ) : orders.length === 0 ? (
           <div className='text-center py-20 border-2 border-gray-200 rounded-lg'>
             <img src={assets.parcel_icon} alt="" className='w-20 mx-auto mb-4 opacity-50' />
-            <p className='text-gray-500 text-lg'>No orders found</p>
+            <p className='text-gray-500 text-lg'>{t('orderPage.none')}</p>
           </div>
         ) : (
           <>
@@ -168,26 +170,26 @@ const Orders = () => {
                     <p>{order.address.phone}</p>
                   </div>
                   <div>
-                    <p className='text-sm sm:text-[15px]'>Items : {order.items.length}</p>
-                    <p className='mt-3'>Method : {order.paymentMethod}</p>
-                    <p>Payment : {order.payment ? 'Done' : 'Pending'}</p>
-                    <p>Date : {new Date(order.date).toLocaleDateString()}</p>
+                    <p className='text-sm sm:text-[15px]'>{t('orderPage.items')} {order.items.length}</p>
+                    <p className='mt-3'>{t('orderPage.method')} {order.paymentMethod}</p>
+                    <p>{t('orderPage.payment')} {order.payment ? t('orderPage.done') : t('orderPage.pending')}</p>
+                    <p>{t('orderPage.date')} {new Date(order.date).toLocaleDateString()}</p>
                   </div>
                   <p className='text-sm sm:text-[15px]'>{currency} {order.amount}</p>
                   <select onChange={(event) => statusHandler(event, order._id)} value={order.status} className='p-2 font-semibold border rounded'>
-                    <option value="Order Placed">Order Placed</option>
-                    <option value="Packing">Packing</option>
-                    <option value="Shipped">Shipped</option>
-                    <option value="Out for delivery">Out for delivery</option>
-                    <option value="Delivered">Delivered</option>
-                    <option value="Canceled">Canceled</option>
+                    <option value="Order Placed">{t('orderPage.orderPlaced')}</option>
+                    <option value="Packing">{t('orderPage.packing')}</option>
+                    <option value="Shipped">{t('orderPage.shipped')}</option>
+                    <option value="Out for delivery">{t('orderPage.outForDelivery')}</option>
+                    <option value="Delivered">{t('orderPage.delivered')}</option>
+                    <option value="Canceled">{t('orderPage.canceled')}</option>
                   </select>
                   <button 
                     onClick={() => openConfirmModal(order)} 
                     disabled={loadingDelete === order._id}
                     className={`p-2 font-semibold border rounded text-white ${loadingDelete === order._id ? 'bg-gray-400 cursor-not-allowed' : 'bg-red-500 hover:bg-red-600'}`}
                   >
-                    {loadingDelete === order._id ? 'DELETING...' : 'Delete'}
+                    {loadingDelete === order._id ? t('orderPage.deleting') : t('orderPage.delete')}
                   </button>
                 </div>
               ))}
@@ -196,7 +198,7 @@ const Orders = () => {
             {orders.length > ordersPerPage && (
               <div className='flex flex-col sm:flex-row justify-between items-center mt-8 p-4 border-t border-gray-200'>
                 <div className='text-sm text-gray-600 mb-4 sm:mb-0'>
-                  Showing {((currentPage - 1) * ordersPerPage) + 1} to {Math.min(currentPage * ordersPerPage, orders.length)} of {orders.length} orders
+                  {t('orderPage.showing', { start: ((currentPage - 1) * ordersPerPage) + 1, end: Math.min(currentPage * ordersPerPage, orders.length), total: orders.length })}
                 </div>
                 <div className='flex flex-wrap gap-2'>
                   <button
@@ -291,22 +293,22 @@ const Orders = () => {
       {showConfirm && (
         <div className='fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4'>
           <div className='bg-white rounded-lg border border-gray-200 p-6 w-full max-w-sm shadow-lg'>
-            <h3 className='text-lg font-semibold mb-4 text-black'>Delete Order</h3>
+            <h3 className='text-lg font-semibold mb-4 text-black'>{t('orderPage.deleteOrder')}</h3>
             <p className='text-gray-600 mb-6'>
-              Are you sure you want to delete order for <span className='font-semibold text-black'>"{orderToDeleteName}"</span>?
+              {t('orderPage.confirm')} <span className='font-semibold text-black'>"{orderToDeleteName}"</span>?
             </p>
             <div className='flex gap-3'>
               <button
                 onClick={closeConfirmModal}
                 className='flex-1 py-2 px-4 bg-white text-gray-700 border border-gray-300 rounded-lg font-medium hover:bg-gray-50 hover:border-gray-400 transition-colors'
               >
-                Cancel
+                {t('productList.cancel')}
               </button>
               <button
                 onClick={confirmDelete}
                 className='flex-1 py-2 px-4 bg-black text-white border border-black rounded-lg font-medium hover:bg-gray-800 transition-colors'
               >
-                Delete
+                {t('productList.delete')}
               </button>
             </div>
           </div>

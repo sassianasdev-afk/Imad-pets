@@ -1,16 +1,18 @@
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
+import { useTranslation } from '../context/LanguageContext'
 
 const ListLoading = () => {
+  const { t } = useTranslation();
     return (
         <div className='flex flex-col gap-2'>
 
             <div className='hidden md:grid grid-cols-[1fr_3fr_1fr_1fr_1fr] items-center py-1 px-2 border bg-gray-100 text-sm'>
-                <b>Image</b>
-                <b>Name</b>
-                <b>Category</b>
-                <b>Price</b>
-                <b className='text-center'>Action</b>
+                <b>{t('productList.image')}</b>
+                <b>{t('productList.name')}</b>
+                <b>{t('productList.category')}</b>
+                <b>{t('productList.price')}</b>
+                <b className='text-center'>{t('productList.action')}</b>
             </div>
             <div className='flex flex-col gap-2'>
                 {

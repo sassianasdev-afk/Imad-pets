@@ -2,8 +2,11 @@ import { useContext, useState } from "react";
 import { assets } from "../assets/frontend_assets/assets";
 import { Link, NavLink } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
+import { useTranslation } from "../context/LanguageContext";
+import LanguageSwitcher from './LanguageSwitcher';
 
 const Navbar = () => {
+  const { t } = useTranslation();
   const [visible, setVisible] = useState(false);
   const [show, setShow] = useState(false);
   const { setShowSearch, getCartCount, navigate, token, setCartItems, logout } = useContext(ShopContext)
@@ -12,22 +15,21 @@ const Navbar = () => {
     <div className="flex items-center justify-between py-5 font-medium">
       <Link to={'/'}><img src={assets.logo} alt="" className="w-36" /></Link>
       <ul className="hidden sm:flex gap-5 text-sm text-gray-700">
-        <NavLink to="/" className="flex flex-col items-center gap-1 py-2 px-3 rounded-full">HOME</NavLink>
-        <NavLink to="/collection" className="flex flex-col items-center gap-1 py-2 px-3 rounded-full">COLLECTION</NavLink>
-        <NavLink to="/about" className="flex flex-col items-center gap-1 py-2 px-3 rounded-full">ABOUT</NavLink>
-        <NavLink to="/contact" className="flex flex-col items-center gap-1 py-2 px-3 rounded-full">CONTACT</NavLink>
+        <NavLink to="/" className={`flex flex-col items-center gap-1 py-2 px-3 rounded-full`}>{t('common.home')}</NavLink>
+        <NavLink to="/collection" className={`flex flex-col items-center gap-1 py-2 px-3 rounded-full`}>{t('common.collection')}</NavLink>
+        <NavLink to="/about" className={`flex flex-col items-center gap-1 py-2 px-3 rounded-full`}>{t('common.about')}</NavLink>
+        <NavLink to="/contact" className={`flex flex-col items-center gap-1 py-2 px-3 rounded-full`}>{t('common.contact')}</NavLink>
       </ul>
       <div className="flex items-center gap-6">
+        <LanguageSwitcher />
         <img onClick={() => (setShowSearch(true), navigate('/collection'))} src={assets.search_icon} className="w-5 cursor-pointer" alt="" />
         <div onMouseEnter={() => setShow(true)} onTouchStart={() => setShow(true)} onTouchCancel={() => setShow(false)} onMouseLeave={() => setShow(false)} className="group relative">
           <img onClick={() => token ? null : navigate('/login')} className="w-5 cursor-pointer" src={assets.profile_icon} alt="" />
           {token &&
             <div className={`absolute dropdown-menu z-50 right-0 pt-4 ${show ? 'block' : 'hidden'}`}>
               <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 border shadow">
-                {/* <p className="cursor-pointer hover:text-black">My Profile</p> */}
-                <p onClick={() => navigate('/orders')} className="cursor-pointer hover:text-black">Orders</p>
-                {/*  logout كيكلي الـ function من ShopContext */}
-                <p onClick={logout} className="cursor-pointer hover:text-black">Logout</p>
+                <p onClick={() => navigate('/orders')} className="cursor-pointer hover:text-black">{t('common.orders')}</p>
+                <p onClick={logout} className="cursor-pointer hover:text-black">{t('common.logout')}</p>
               </div>
             </div>
           }
@@ -42,12 +44,12 @@ const Navbar = () => {
         <div className="flex flex-col text-gray-600">
           <div onClick={() => setVisible(false)} className="flex items-center gap-4 p-3 cursor-pointer">
             <img className="h-4 rotate-180" src={assets.dropdown_icon} alt="" />
-            <p>back</p>
+            <p>{t('common.back')}</p>
           </div>
-          <NavLink onClick={() => setVisible(false)} className='py-2 pl-6 border' to='/'>HOME</NavLink>
-          <NavLink onClick={() => setVisible(false)} className='py-2 pl-6 border' to='/collection'>COLLECTION</NavLink>
-          <NavLink onClick={() => setVisible(false)} className='py-2 pl-6 border' to='/about'>ABOUT</NavLink>
-          <NavLink onClick={() => setVisible(false)} className='py-2 pl-6 border' to='/contact'>CONTACT</NavLink>
+          <NavLink onClick={() => setVisible(false)} className='py-2 pl-6 border' to='/'>{t('common.home')}</NavLink>
+          <NavLink onClick={() => setVisible(false)} className='py-2 pl-6 border' to='/collection'>{t('common.collection')}</NavLink>
+          <NavLink onClick={() => setVisible(false)} className='py-2 pl-6 border' to='/about'>{t('common.about')}</NavLink>
+          <NavLink onClick={() => setVisible(false)} className='py-2 pl-6 border' to='/contact'>{t('common.contact')}</NavLink>
         </div>
       </div>
     </div>

@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { assets } from "../assets/frontend_assets/assets";
+import { useTranslation } from "../context/LanguageContext";
 
 const CollectionBox = () => {
-  const [currentText, setCurrentText] = useState("MEN ");
-  const texts = ["MEN", "WOMEN", "KIDS"];
+  const { t } = useTranslation();
+  const [currentText, setCurrentText] = useState(t('collectionBox.men'));
+  const texts = [t('collectionBox.men'), t('collectionBox.women'), t('collectionBox.kids')];
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -22,7 +24,7 @@ const CollectionBox = () => {
         <div className="text-white text-center">
           <div className="flex items-center justify-center gap-2">
             <p className="w-8 md:w-11 h-[2px] bg-white"></p>
-            <p className="font-medium text-sm md:text-base">COLLECTION</p>
+            <p className="font-medium text-sm md:text-base">{t('collectionBox.collection')}</p>
           </div>
 
           <h1
@@ -35,7 +37,7 @@ const CollectionBox = () => {
           </h1>
 
           <div className="flex items-center justify-center gap-2">
-            <p className="font-semibold text-sm md:text-base">SHOP NOW</p>
+            <p className="font-semibold text-sm md:text-base">{t('collectionBox.shopNow')}</p>
             <p className="w-8 md:w-11 h-[1px] bg-white"></p>
           </div>
         </div>

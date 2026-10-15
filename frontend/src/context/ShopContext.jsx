@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router";
 import axios from 'axios';
+import { useTranslation } from './LanguageContext';
 
 export const ShopContext = createContext();
 
@@ -9,6 +10,7 @@ export const ShopContext = createContext();
 axios.defaults.withCredentials = true
 
 const ShopContextProvider = (props) => {
+  const { t } = useTranslation();
 
     const currency = 'MAD :';
     const delivery_fee = 10;
@@ -25,7 +27,7 @@ const ShopContextProvider = (props) => {
 
     const addToCart = async (itemId, size) => {
         if (!size) {
-            toast.error('Select Product Size');
+            toast.error(t('common.selectProductSize'));
             return;
         }
         let cartData = structuredClone(cartItems);
@@ -38,13 +40,13 @@ const ShopContextProvider = (props) => {
         if (token) {
             try {
                 await axios.post(backendUrl + '/api/cart/add', { itemId, size })
-                toast.success(`${cartData[itemId][size]} item(s) added to cart`)
+                toast.success(t('common.itemAdded', { count: cartData[itemId][size] }))
             } catch (error) {
                 toast.error(error.message)
             }
         } else {
             cartData[itemId] = {}
-            toast.error('Please login to add items to cart')
+            toast.error(t('common.pleaseLoginToAdd'))
             navigate('/login');
         }
     }
@@ -159,13 +161,13 @@ const ShopContextProvider = (props) => {
                 if (!res.data.success) {
                     setToken(false)
                     setCartItems({})
-                    toast.info('Session expired. Please login again.')
+                    toast.info(t('common.sessionExpired'))
                     navigate('/login')
                 }
             } catch {
                 setToken(false)
                 setCartItems({})
-                toast.info('Session expired. Please login again.')
+                toast.info(t('common.sessionExpired'))
                 navigate('/login')
             }
         }, 10 * 1000)

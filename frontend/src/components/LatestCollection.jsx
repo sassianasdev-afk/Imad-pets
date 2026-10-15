@@ -4,8 +4,10 @@ import Title from './Title';
 import ProductItem from './ProductItem';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
+import { useTranslation } from '../context/LanguageContext';
 
 const LatestCollection = () => {
+  const { t } = useTranslation();
   const { products,loading } = useContext(ShopContext);
   const [latestProducts, setLatestProducts] = useState([]);
   
@@ -25,9 +27,9 @@ const LatestCollection = () => {
   return (
     <div className='my-10'>
       <div className='text-center py-8 text-3xl'>
-        <Title text1={'LATEST'} text2={'COLLECTIONS'} />
+        <Title text1={t('latestCollection.latest')} text2={t('latestCollection.collections')} />
         <p className='w-3/4 m-auto text-xs sm:text-sm md:text-base text-gray-600'>
-          Step into the world of Imad Pets' latest collection, where quality meets care. Discover our newest pet food, toys, accessories, and grooming products, crafted to bring health, happiness, and comfort to your furry friends. Refresh your pet's life with products that are both modern and reliable, perfect for every occasion.
+          {t('latestCollection.desc')}
         </p>
       </div>
 

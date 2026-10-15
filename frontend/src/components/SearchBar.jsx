@@ -2,8 +2,10 @@ import { useContext, useEffect, useState } from "react";
 import { ShopContext } from "../context/ShopContext";
 import { assets } from "../assets/frontend_assets/assets";
 import { useLocation } from "react-router";
+import { useTranslation } from "../context/LanguageContext";
 
 const SearchBar = () => {
+  const { t } = useTranslation();
   
   const { search, setSearch, showSearch, setShowSearch } = useContext(ShopContext);
   const [visible,setVisible] = useState(false);
@@ -25,7 +27,7 @@ const SearchBar = () => {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           type="text"
-          placeholder="Search"
+          placeholder={t('common.search')}
           className="flex-1 outline-none bg-inherit text-sm"
         />
         <img className="w-4" src={assets.search_icon} alt="" />

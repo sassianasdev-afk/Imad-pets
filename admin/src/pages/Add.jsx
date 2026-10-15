@@ -4,6 +4,7 @@ import axios from 'axios'
 import { backendUrl } from '../App'
 import { toast } from 'react-toastify'
 import Cropper from 'react-easy-crop'
+import { useTranslation } from '../context/LanguageContext'
 
 // Function to get cropped image as blob
 const getCroppedImg = async (imageSrc, crop, aspect = 4 / 5) => {
@@ -47,6 +48,7 @@ const createImage = (url) =>
 
 // حذف { token } من props — cookie كتمشي أوتوماتيك
 const Add = () => {
+  const { t } = useTranslation();
 
   const [image1, setImage1] = useState(false)
   const [image2, setImage2] = useState(false)
@@ -104,7 +106,7 @@ const Add = () => {
       setTempImageUrl(null)
       toast.success('Image cropped successfully!')
     } catch (error) {
-      toast.error('Error cropping image')
+      toast.error(t('productForm.errorCropping'))
     }
   }
 
@@ -134,12 +136,12 @@ const Add = () => {
       image4 && formData.append("image4", image4)
 
       if (!image1) {
-        toast.error('ADD IMAGE')
+        toast.error(t('productForm.addImage'))
         return null
       }
 
       if (sizes.length == 0) {
-        toast.error('SELECT SIZES')
+        toast.error(t('productForm.selectSizes'))
         return null
       }
 
@@ -177,8 +179,8 @@ const Add = () => {
     <div className='flex flex-col gap-3'>
       <form onSubmit={onSubmitHandler} className='flex flex-col w-full items-start gap-3'>
         <div>
-          <p className='mb-2'>Upload Image
-            <span className='text-slate-400 block text-sm'>Aspect ratio 4:5 required</span>
+          <p className='mb-2'>{t('productForm.uploadImage')}
+            <span className='text-slate-400 block text-sm'>{t('productForm.sizeHint')}</span>
           </p>
           <div className='flex gap-2 '>
             <label htmlFor="image1">
@@ -208,7 +210,7 @@ const Add = () => {
         {showCropper && (
           <div className='fixed inset-0 bg-black/20 bg-opacity-75 z-50 flex flex-col items-center justify-center p-4'>
             <div className='bg-white rounded p-4 w-full max-w-lg'>
-              <h3 className='text-lg font-medium mb-2'>Crop Image (4:5)</h3>
+              <h3 className='text-lg font-medium mb-2'>{t('productForm.cropTitle')}</h3>
               <div className='relative w-full h-80 bg-gray-900'>
                 <Cropper
                   image={tempImageUrl}
@@ -221,7 +223,7 @@ const Add = () => {
                 />
               </div>
               <div className='mt-4'>
-                <label className='text-sm text-gray-600'>Zoom:</label>
+                <label className='text-sm text-gray-600'>{t('productForm.zoom')}</label>
                 <input
                   type="range"
                   min={1}
@@ -251,42 +253,42 @@ const Add = () => {
         )}
 
         <div className='w-full'>
-          <p className='mb-2'>Product name</p>
-          <input onChange={(e) => setName(e.target.value)} value={name} className='w-full max-w-[500px] px-3 py-2' type="text" placeholder='Type here' required />
+          <p className='mb-2'>{t('productForm.productName')}</p>
+          <input onChange={(e) => setName(e.target.value)} value={name} className='w-full max-w-[500px] px-3 py-2' type="text" placeholder={t('productForm.typeHere')} required />
         </div>
 
         <div className='w-full'>
-          <p className='mb-2'>Product description</p>
-          <textarea onChange={(e) => setDescription(e.target.value)} value={description} className='w-full max-w-[500px] px-3 py-2' placeholder='Write content here' required />
+          <p className='mb-2'>{t('productForm.productDescription')}</p>
+          <textarea onChange={(e) => setDescription(e.target.value)} value={description} className='w-full max-w-[500px] px-3 py-2' placeholder={t('productForm.writeContent')} required />
         </div>
 
         <div className='flex flex-col sm:flex-row gap-2 w-full sm:gap-8'>
           <div>
-            <p className='mb-2'>Product category</p>
+            <p className='mb-2'>{t('productForm.productCategory')}</p>
             <select onClick={clear} onChange={(e) => setCategory(e.target.value)} className='w-full px-3 py-2 sm:w-[120px]'>
-              <option value="Dogs">Dogs</option>
-              <option value="Cats">Cats</option>
-              <option value="Birds">Birds</option>
+              <option value="Dogs">{t('productForm.dogs')}</option>
+              <option value="Cats">{t('productForm.cats')}</option>
+              <option value="Birds">{t('productForm.birds')}</option>
             </select>
           </div>
           <div>
-            <p className='mb-2'>Sub category</p>
+            <p className='mb-2'>{t('productForm.subCategory')}</p>
             <select onClick={clear} onChange={(e) => setSubCategory(e.target.value)} className='w-full px-3 py-2'>
-              <option value="Animal">Animal</option>
-              <option value="Accessories">Accessories</option>
-              <option value="Food">Food</option>
-              <option value="Drinks">Drinks</option>
+              <option value="Animal">{t('productForm.animal')}</option>
+              <option value="Accessories">{t('productForm.accessories')}</option>
+              <option value="Food">{t('productForm.food')}</option>
+              <option value="Drinks">{t('productForm.drinks')}</option>
             </select>
           </div>
           <div>
-            <p className='mb-2'>Product Price</p>
-            <input onChange={(e) => setPrice(e.target.value)} value={price} className='w-full px-3 py-2 sm:w-[120px]' placeholder='25' type="Number" required />
+            <p className='mb-2'>{t('productForm.productPrice')}</p>
+            <input onChange={(e) => setPrice(e.target.value)} value={price} className='w-full px-3 py-2 sm:w-[120px]' placeholder={t('productForm.placeholder25')} type="Number" required />
           </div>
         </div>
 
         {subCategory === 'Animal' &&
           <div>
-            <p className='mb-2'>Product Age</p>
+            <p className='mb-2'>{t('productForm.productAge')}</p>
             <div className='flex flex-wrap gap-3'>
               {["1 Month", "2 Months", "3 Months", "6 Months", "1 Year", "2 Years", "3 Years", "5 Years"].map(s => (
                 <div key={s} onClick={() => setSizes(prev => prev.includes(s) ? prev.filter(item => item !== s) : [...prev, s])}>
@@ -299,7 +301,7 @@ const Add = () => {
 
         {subCategory === 'Accessories' &&
           <div>
-            <p className='mb-2'>Product Sizes</p>
+            <p className='mb-2'>{t('productForm.productSizes')}</p>
             <div className='flex flex-wrap gap-3'>
               {["standar","S", "M", "L", "XL", "XXL"].map(s => (
                 <div key={s} onClick={() => setSizes(prev => prev.includes(s) ? prev.filter(item => item !== s) : [...prev, s])}>
@@ -312,7 +314,7 @@ const Add = () => {
 
         {subCategory === 'Food' &&
           <div>
-            <p className='mb-2'>Product Weight</p>
+            <p className='mb-2'>{t('productForm.productWeight')}</p>
             <div className='flex flex-wrap gap-3'>
               {["100g", "250g", "500g", "1kg", "2kg", "5kg", "10kg"].map(s => (
                 <div key={s} onClick={() => setSizes(prev => prev.includes(s) ? prev.filter(item => item !== s) : [...prev, s])}>
@@ -325,7 +327,7 @@ const Add = () => {
 
         {subCategory === 'Drinks' &&
           <div>
-            <p className='mb-2'>Product Volume</p>
+            <p className='mb-2'>{t('productForm.productVolume')}</p>
             <div className='flex flex-wrap gap-3'>
               {["250ml", "500ml", "1L", "2L", "5L"].map(s => (
                 <div key={s} onClick={() => setSizes(prev => prev.includes(s) ? prev.filter(item => item !== s) : [...prev, s])}>
@@ -338,15 +340,15 @@ const Add = () => {
 
         <div className='flex gap-2 mt-2'>
           <input onChange={() => setBestseller(prev => !prev)} checked={bestseller} className='accent-black' type="checkbox" id='bestseller' />
-          <label htmlFor="bestseller" className='cursor-pointer'>Add to bestseller</label>
+          <label htmlFor="bestseller" className='cursor-pointer'>{t('productForm.addToBestseller')}</label>
         </div>
 
         {!loading &&
-          <button type='submit' className='w-28 py-3 mt-2 bg-black text-white active:bg-gray-800'>ADD</button>
+          <button type='submit' className='w-28 py-3 mt-2 bg-black text-white active:bg-gray-800'>{t('productForm.add')}</button>
         }
       </form>
       {loading &&
-        <button className='w-28 py-3 mt-2 bg-gray-700 text-white'>ADDING ...</button>
+        <button className='w-28 py-3 mt-2 bg-gray-700 text-white'>{t('productForm.adding')}</button>
       }
     </div>
   )

@@ -5,6 +5,7 @@ import { backendUrl } from '../App'
 import { toast } from 'react-toastify'
 import { useParams, useNavigate } from 'react-router-dom'
 import Cropper from 'react-easy-crop'
+import { useTranslation } from '../context/LanguageContext'
 
 // Function to get cropped image as blob
 const getCroppedImg = async (imageSrc, crop, aspect = 4 / 5) => {
@@ -48,6 +49,7 @@ const createImage = (url) =>
 
 //  حذف { token } من props — cookie كتمشي أوتوماتيك
 const Update = () => {
+  const { t } = useTranslation();
 
   const { id } = useParams()
   const navigate = useNavigate()
@@ -107,10 +109,10 @@ const Update = () => {
 
       setShowCropper(false)
       setTempImageUrl(null)
-      toast.success('Image cropped and added!')
+      toast.success(t('productForm.imageCroppedAdded'))
     } catch (error) {
       console.error('Crop error:', error)
-      toast.error('Error cropping image')
+      toast.error(t('productForm.errorCropping'))
     }
   }
 
@@ -141,7 +143,7 @@ const Update = () => {
       setRemovedIndices(prev => [...prev, index])
     }
 
-    toast.success('Image removed - click UPDATE to save changes')
+    toast.success(t('productForm.imageRemoved'))
   }
 
   const fetchProduct = async () => {
@@ -191,7 +193,7 @@ const Update = () => {
       }
 
       if (sizes.length === 0) {
-        toast.error('SELECT SIZES')
+        toast.error(t('productForm.selectSizes'))
         setLoading(false)
         return
       }
@@ -216,15 +218,15 @@ const Update = () => {
     <div className='flex flex-col gap-3'>
       <form onSubmit={onSubmitHandler} className='flex flex-col w-full items-start gap-3'>
         <div>
-          <p className='mb-2'>Upload Image
-            <span className='text-slate-400 block text-sm'>size 4:5 - Remove first to add new</span>
+          <p className='mb-2'>{t('productForm.uploadImage')}
+            <span className='text-slate-400 block text-sm'>{t('productForm.sizeHint')}</span>
           </p>
 
           {/* Image Cropper Modal - like Add.jsx */}
           {showCropper && (
             <div className='fixed inset-0 bg-black/20 bg-opacity-75 z-50 flex flex-col items-center justify-center p-4'>
               <div className='bg-white rounded p-4 w-full max-w-lg'>
-                <h3 className='text-lg font-medium mb-2'>Crop Image (4:5)</h3>
+                <h3 className='text-lg font-medium mb-2'>{t('productForm.cropTitle')}</h3>
                 <div className='relative w-full h-80 bg-gray-900'>
                   <Cropper
                     image={tempImageUrl}
@@ -237,7 +239,7 @@ const Update = () => {
                   />
                 </div>
                 <div className='mt-4'>
-                  <label className='text-sm text-gray-600'>Zoom:</label>
+                  <label className='text-sm text-gray-600'>{t('productForm.zoom')}</label>
                   <input
                     type="range"
                     min={1}
@@ -254,14 +256,14 @@ const Update = () => {
                     onClick={cancelCrop}
                     className='flex-1 py-2 border border-gray-300 rounded hover:bg-gray-100'
                   >
-                    Cancel
+                    {t('productForm.cancel')}
                   </button>
                   <button
                     type="button"
                     onClick={applyCrop}
                     className='flex-1 py-2 bg-black text-white rounded hover:bg-gray-800'
                   >
-                    Apply Crop
+                    {t('productForm.applyCrop')}
                   </button>
                 </div>
               </div>
@@ -281,7 +283,7 @@ const Update = () => {
                       type="button"
                       onClick={() => handleRemoveImage(i)}
                       className='absolute -top-2 -right-2 bg-black text-white w-6 h-6 flex items-center justify-center rounded-full font-bold text-xs z-10 hover:bg-gray-800 transition-colors'
-                      title="Remove image"
+                      title={t('productForm.removeImage')}
                     >
                       ×
                     </button>
@@ -313,42 +315,42 @@ const Update = () => {
         </div>
 
         <div className='w-full'>
-          <p className='mb-2'>Product name</p>
+          <p className='mb-2'>{t('productForm.productName')}</p>
           <input value={name} onChange={e => setName(e.target.value)} className='w-full max-w-[500px] px-3 py-2' required />
         </div>
 
         <div className='w-full'>
-          <p className='mb-2'>Product description</p>
+          <p className='mb-2'>{t('productForm.productDescription')}</p>
           <textarea value={description} onChange={e => setDescription(e.target.value)} className='w-full max-w-[500px] px-3 py-2' required />
         </div>
 
         <div className='flex flex-col sm:flex-row gap-2 sm:gap-8'>
           <div>
-            <p className='mb-2'>Product category</p>
+            <p className='mb-2'>{t('productForm.productCategory')}</p>
             <select onClick={clear} value={category} onChange={e => setCategory(e.target.value)} className='px-3 py-2'>
-              <option>Dogs</option>
-              <option>Cats</option>
-              <option>Birds</option>
+              <option value="Dogs">{t('productForm.dogs')}</option>
+              <option value="Cats">{t('productForm.cats')}</option>
+              <option value="Birds">{t('productForm.birds')}</option>
             </select>
           </div>
           <div>
-            <p className='mb-2'>Sub category</p>
+            <p className='mb-2'>{t('productForm.subCategory')}</p>
             <select onClick={clear} value={subCategory} onChange={e => setSubCategory(e.target.value)} className='px-3 py-2'>
-              <option>Animal</option>
-              <option>Accessories</option>
-              <option>Food</option>
-              <option>Drinks</option>
+              <option value="Animal">{t('productForm.animal')}</option>
+              <option value="Accessories">{t('productForm.accessories')}</option>
+              <option value="Food">{t('productForm.food')}</option>
+              <option value="Drinks">{t('productForm.drinks')}</option>
             </select>
           </div>
           <div>
-            <p className='mb-2'>Price</p>
+            <p className='mb-2'>{t('productForm.productPrice')}</p>
             <input value={price} onChange={e => setPrice(e.target.value)} className='px-3 py-2 w-[120px]' type="number" />
           </div>
         </div>
 
         {subCategory === 'Animal' &&
           <div>
-            <p className='mb-2'>Product Age</p>
+            <p className='mb-2'>{t('productForm.productAge')}</p>
             <div className='flex gap-3 flex-wrap'>
               {["1 Month", "2 Months", "3 Months", "6 Months", "1 Year", "2 Years", "3 Years", "5 Years"].map(s => (
                 <p key={s}
@@ -363,7 +365,7 @@ const Update = () => {
 
         {subCategory === 'Accessories' &&
           <div>
-            <p className='mb-2'>Product Sizes</p>
+            <p className='mb-2'>{t('productForm.productSizes')}</p>
             <div className='flex gap-3 flex-wrap'>
               {["standar","S", "M", "L", "XL", "XXL"].map(s => (
                 <p key={s}
@@ -378,7 +380,7 @@ const Update = () => {
 
         {subCategory === 'Food' &&
           <div>
-            <p className='mb-2'>Product Weight</p>
+            <p className='mb-2'>{t('productForm.productWeight')}</p>
             <div className='flex gap-3 flex-wrap'>
               {["100g", "250g", "500g", "1kg", "2kg", "5kg", "10kg"].map(s => (
                 <p key={s}
@@ -393,7 +395,7 @@ const Update = () => {
 
         {subCategory === 'Drinks' &&
           <div>
-            <p className='mb-2'>Product Volume</p>
+            <p className='mb-2'>{t('productForm.productVolume')}</p>
             <div className='flex gap-3 flex-wrap'>
               {["250ml", "500ml", "1L", "2L", "5L"].map(s => (
                 <p key={s}
@@ -408,15 +410,15 @@ const Update = () => {
 
         <div className='flex gap-2 mt-2'>
           <input onChange={() => setBestseller(prev => !prev)} checked={bestseller} className='accent-black' type="checkbox" id='bestseller' />
-          <label htmlFor="bestseller" className='cursor-pointer'>Add to bestseller</label>
+          <label htmlFor="bestseller" className='cursor-pointer'>{t('productForm.addToBestseller')}</label>
         </div>
 
         {!loading &&
-          <button type='submit' className='w-28 py-3 mt-2 bg-black text-white active:bg-gray-800'>UPDATE</button>
+          <button type='submit' className='w-28 py-3 mt-2 bg-black text-white active:bg-gray-800'>{t('productForm.update')}</button>
         }
       </form>
       {loading &&
-        <button className='w-28 py-3 mt-2 bg-gray-700 text-white'>UPDATING...</button>
+        <button className='w-28 py-3 mt-2 bg-gray-700 text-white'>{t('productForm.updating')}</button>
       }
     </div>
   )

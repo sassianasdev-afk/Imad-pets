@@ -1,13 +1,14 @@
 import React from 'react'
+import { useTranslation } from '../context/LanguageContext'
 
 const OrderStatusNav = ({ statusFilter, setSearchParams, pendingCount }) => {
-  
+  const { t } = useTranslation();
 
   const statusButtons = [
-    { status: 'all', label: 'All Orders', showBadge: false },
-    { status: 'pending', label: 'Pending', showBadge: true },
-    { status: 'Delivered', label: 'Delivered', showBadge: false },
-    { status: 'Canceled', label: 'Canceled', showBadge: false },
+    { status: 'all', label: t('orderStatus.all'), showBadge: false },
+    { status: 'pending', label: t('orderStatus.pending'), showBadge: true },
+    { status: 'Delivered', label: t('orderStatus.delivered'), showBadge: false },
+    { status: 'Canceled', label: t('orderStatus.canceled'), showBadge: false },
   ]
 
   return (

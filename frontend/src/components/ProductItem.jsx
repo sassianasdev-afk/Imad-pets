@@ -2,9 +2,10 @@ import React, { useContext } from 'react'
 import { ShopContext } from '../context/ShopContext'
 import { Link } from 'react-router-dom';
 import { assets } from '../assets/frontend_assets/assets';
+import { useTranslation } from '../context/LanguageContext';
 
 const ProductItem = ({id,image,name,price,bestseller}) => {
-
+    const { t } = useTranslation();
     const {currency} = useContext(ShopContext);
     
 
@@ -32,7 +33,7 @@ const ProductItem = ({id,image,name,price,bestseller}) => {
       />
     ) : (
       <div className='w-full aspect-[3/4] bg-gray-200 border-2 border-dashed border-gray-400 flex items-center justify-center'>
-        <span className='text-gray-500 text-xs text-center px-2'>product without image</span>
+        <span className='text-gray-500 text-xs text-center px-2'>{t('common.productWithoutImage')}</span>
       </div>
     )}
   </div>

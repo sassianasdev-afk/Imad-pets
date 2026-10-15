@@ -20,6 +20,9 @@ import stripe_logo from './stripe_logo.png'
 import cross_icon from './cross_icon.png'
 import gif from './gif.gif'
 import bestseller from './best-seller.svg'
+import usa_flag from './usa_flag.png'
+import frensh_flag from './frensh_flag.png'
+import ma_flag from './ma_flag.png'
 
 export const assets = {
     bestseller,
@@ -43,5 +46,8 @@ export const assets = {
     contact_img,
     razorpay_logo,
     stripe_logo,
-    cross_icon
+    cross_icon,
+    usa_flag,
+    frensh_flag,
+    ma_flag
 }
