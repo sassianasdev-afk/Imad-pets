@@ -96,5 +96,23 @@
     "delete": "Delete",
     "deleteOrder": "Delete Order",
     "confirm": "Are you sure you want to delete order for"
+  },
+  "home": {
+    "title": "Dashboard",
+    "subtitle": "Overview of your products and store statistics",
+    "refresh": "Refresh",
+    "totalProducts": "Total Products",
+    "bestsellers": "Bestsellers",
+    "categories": "Categories",
+    "subCategories": "Sub Categories",
+    "bestsellerVsRegular": "Bestsellers vs Regular",
+    "bestseller": "Bestseller",
+    "regular": "Regular",
+    "products": "Products",
+    "productsByCategory": "Products by Category",
+    "productsBySubCategory": "Products by Sub Category",
+    "priceRange": "Price Range Distribution",
+    "loading": "Loading statistics...",
+    "noData": "No data available"
   }
 }

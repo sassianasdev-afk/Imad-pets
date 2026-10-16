@@ -316,7 +316,7 @@ const Add = () => {
           <div>
             <p className='mb-2'>{t('productForm.productWeight')}</p>
             <div className='flex flex-wrap gap-3'>
-              {["100g", "250g", "500g", "1kg", "2kg", "5kg", "10kg"].map(s => (
+              {["100g", "250g", "500g", "1kg", "2kg", "5kg", "10kg","15kg","20kg"].map(s => (
                 <div key={s} onClick={() => setSizes(prev => prev.includes(s) ? prev.filter(item => item !== s) : [...prev, s])}>
                   <p className={`${sizes.includes(s) ? "bg-orange-100" : "bg-slate-200"} px-3 py-1 cursor-pointer`}>{s}</p>
                 </div>

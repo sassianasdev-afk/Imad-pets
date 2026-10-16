@@ -96,5 +96,23 @@
     "delete": "حذف",
     "deleteOrder": "حذف الطلب",
     "confirm": "هل أنت متأكد أنك تريد حذف الطلب لـ"
+  },
+  "home": {
+    "title": "لوحة التحكم",
+    "subtitle": "نظرة عامة على منتجاتك وإحصائيات متجرك",
+    "refresh": "تحديث",
+    "totalProducts": "إجمالي المنتجات",
+    "bestsellers": "الأكثر مبيعاً",
+    "categories": "الفئات",
+    "subCategories": "الفئات الفرعية",
+    "bestsellerVsRegular": "الأكثر مبيعاً مقابل العادي",
+    "bestseller": "الأكثر مبيعاً",
+    "regular": "عادي",
+    "products": "منتجات",
+    "productsByCategory": "المنتجات حسب الفئة",
+    "productsBySubCategory": "المنتجات حسب الفئة الفرعية",
+    "priceRange": "توزيع نطاقات الأسعار",
+    "loading": "جاري تحميل الإحصائيات...",
+    "noData": "لا توجد بيانات متاحة"
   }
 }

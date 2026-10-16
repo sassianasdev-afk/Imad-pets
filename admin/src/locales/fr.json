@@ -96,5 +96,23 @@
     "delete": "Supprimer",
     "deleteOrder": "Supprimer la commande",
     "confirm": "Êtes-vous sûr de vouloir supprimer la commande pour"
+  },
+  "home": {
+    "title": "Tableau de bord",
+    "subtitle": "Aperçu de vos produits et statistiques de la boutique",
+    "refresh": "Actualiser",
+    "totalProducts": "Total des produits",
+    "bestsellers": "Meilleures ventes",
+    "categories": "Catégories",
+    "subCategories": "Sous-catégories",
+    "bestsellerVsRegular": "Meilleures ventes vs Classiques",
+    "bestseller": "Meilleure vente",
+    "regular": "Classique",
+    "products": "Produits",
+    "productsByCategory": "Produits par catégorie",
+    "productsBySubCategory": "Produits par sous-catégorie",
+    "priceRange": "Répartition par tranche de prix",
+    "loading": "Chargement des statistiques...",
+    "noData": "Aucune donnée disponible"
   }
 }

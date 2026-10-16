@@ -4,6 +4,7 @@ import { Routes, Route } from 'react-router-dom'
 import Add from './pages/Add'
 import List from './pages/List'
 import Orders from './pages/Orders'
+import Home from './pages/Home'
 import { useState, useEffect } from 'react'
 import Login from './components/Login'
 import { ToastContainer, toast } from 'react-toastify';
@@ -83,6 +84,7 @@ const App = () => {
               <div className='w-[70%] mx-auto ml-[max(5vw,25px)] my-8 text-gray-600 text-base'>
                 <Routes>
                   {/*  ما كنمرروش token — cookie كتمشي أوتوماتيك مع كل request */}
+                  <Route path='/' element={<Home />} />
                   <Route path='/add' element={<Add />} />
                   <Route path='/list' element={<List />} />
                   <Route path='/orders' element={<Orders />} />

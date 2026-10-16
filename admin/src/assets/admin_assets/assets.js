@@ -7,6 +7,7 @@ import cloth_icon from './cloth.png'
 import usa_flag from './usa_flag.png'
 import frensh_flag from './frensh_flag.png'
 import ma_flag from './ma_flag.png'
+import notification from './notification.mp3'
 
 export const assets = {
     logo,
@@ -17,6 +18,7 @@ export const assets = {
     parcel_icon,
     usa_flag,
     frensh_flag,
-    ma_flag
+    ma_flag,
+    notification
 }
 

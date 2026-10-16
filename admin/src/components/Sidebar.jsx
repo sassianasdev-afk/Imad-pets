@@ -8,7 +8,37 @@ import { useTranslation } from '../context/LanguageContext'
 const Sidebar = () => {
   const { t } = useTranslation();
   const [pendingCount, setPendingCount] = useState(0)
+  const [prevPendingCount, setPrevPendingCount] = useState(0)
+  const [notifPermission, setNotifPermission] = useState('default')
   const isPending = ['Order Placed','Packing','Shipped','Out for delivery']
+
+  const playOrderNotification = () => {
+    try {
+      const audio = new Audio(assets.notification)
+      audio.volume = 0.7
+      audio.play().catch((err) => console.log('Audio play blocked:', err))
+    } catch (error) {
+      console.log('Error playing notification:', error)
+    }
+  }
+
+  const showDesktopNotification = (orderCount) => {
+    if (notifPermission === 'granted' && 'Notification' in window) {
+      new Notification('Imad Pets - New Order', {
+        body: `You have ${orderCount} new pending order(s).`,
+        icon: assets.logo,
+        tag: 'new-order',
+        requireInteraction: true,
+        silent: false,
+      })
+    }
+  }
+
+  const requestNotificationPermission = async () => {
+    if (!('Notification' in window)) return
+    const permission = await Notification.requestPermission()
+    setNotifPermission(permission)
+  }
 
   const fetchPendingOrdersCount = async () => {
     try {
@@ -22,12 +52,12 @@ const Sidebar = () => {
     }
   }
 
+  // Request notification permission + poll for new orders on mount
   useEffect(() => {
+    requestNotificationPermission()
     fetchPendingOrdersCount()
-    // Refresh count every 5 seconds for real-time updates
     const interval = setInterval(fetchPendingOrdersCount, 5000)
     
-    // Listen for custom event to refresh count when order status changes
     const handleRefresh = () => fetchPendingOrdersCount()
     window.addEventListener('refreshPendingCount', handleRefresh)
     
@@ -36,6 +66,15 @@ const Sidebar = () => {
       window.removeEventListener('refreshPendingCount', handleRefresh)
     }
   }, [])
+
+  // Show desktop notification + sound when a new pending order arrives
+  useEffect(() => {
+    if (pendingCount > prevPendingCount && prevPendingCount > 0) {
+      showDesktopNotification(pendingCount)
+      playOrderNotification()
+    }
+    setPrevPendingCount(pendingCount)
+  }, [pendingCount, prevPendingCount, notifPermission])
 
   return (
     <div className='w-[18%] min-h-screen border-r-1'>

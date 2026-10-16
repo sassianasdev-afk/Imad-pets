@@ -21,7 +21,9 @@ const Navbar = ({ setIsLoggedIn }) => {
 
   return (
     <div className='flex items-center py-2 px-[4%] justify-between'>
-      <img className='w-[max(10%,80px)]' src={assets.logo} alt="" />
+      <Link to={'/'} className='w-[max(10%,80px)] cursor-pointer'>
+        <img src={assets.logo} alt='' />
+      </Link>
       <LanguageSwitcher />
       <button
         onClick={handleLogout}
