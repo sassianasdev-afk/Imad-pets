@@ -16,8 +16,8 @@ const Contact = () => {
       <img className='w-full md:max-w-[480px]' src={assets.contact_img} alt="" />
       <div className='flex flex-col justify-center items-start gap-6'>
         <p className='font-semibold text-xl text-gray-600'>{t('contact.ourStore')}</p>
-        <p className='text-gray-500'>meknes elmanar imm b0 appt5 <br /> VN MEKNES</p>
-        <p className='text-gray-500'>Tel: (212)629-400-699 <br /> Email: sassianasdev@gmail.com</p>
+        <p className='text-gray-500'>Meknes , Hamria</p>
+        <p className='text-gray-500'>Tel: (212)675175682 <br /> Email: imadsbai530@gmail.com</p>
         <p className='font-semibold text-xl text-gray-600'>{t('contact.careers')}</p>
         <p className='text-gray-500'>{t('contact.careersDesc')}</p>
         <button className='border border-black px-8 py-4 text-sm hover:bg-black hover:text-white transition-all duration-500'>{t('contact.exploreJobs')}</button>

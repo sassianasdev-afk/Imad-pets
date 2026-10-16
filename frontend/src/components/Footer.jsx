@@ -31,8 +31,8 @@ const Footer = () => {
         <div>
           <p className='text-xl font-medium mb-5'>{t('footer.getInTouch')}</p>
           <ul className='flex flex-col gap-1 text-gray-600'>
-            <li>+212629400699</li>
-            <li>sassianasdev@gmail.com</li>
+            <li>0675175682</li>
+            <li>imadsbai530@gmail.com</li>
           </ul>
         </div>
         <div>

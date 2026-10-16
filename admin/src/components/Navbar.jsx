@@ -5,7 +5,7 @@ import { backendUrl } from '../App'
 import { toast } from 'react-toastify'
 import { useTranslation } from '../context/LanguageContext'
 import LanguageSwitcher from './LanguageSwitcher'
-
+import {Link} from 'react-router-dom'
 const Navbar = ({ setIsLoggedIn }) => {
   const { t } = useTranslation();
 
